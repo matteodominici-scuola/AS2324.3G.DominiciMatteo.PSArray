@@ -9,14 +9,24 @@
             int nVoti = int.Parse(Console.ReadLine());
             double[] voti = new double[nVoti];
             int[] pesi = new int[nVoti];
+            CaricaVettori(ref voti, ref pesi, nVoti);
             StampaVotiPesi(voti, pesi, nVoti);
         }
         static void StampaVotiPesi(double[] voti, int[] pesi, int nVoti)
         {
-            Console.WriteLine("Voti, pesi");
+            Console.WriteLine("Voti pesi");
             for (int i = 0; i < nVoti; i++)
             {
-                Console.WriteLine($"{voti[i]}, {pesi[i]}");
+                Console.WriteLine($"{voti[i]}    {pesi[i]}");
+            }
+        }
+        static void CaricaVettori(ref double[] voti, ref int[] pesi, int nVoti)
+        {
+            Random random = new Random();
+            for(int i = 0;i < nVoti; i++)
+            {
+                voti[i] = random.Next(1, 11);
+                pesi[i] = random.Next(0, 101);
             }
         }
     }
