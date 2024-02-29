@@ -21,6 +21,9 @@
             Console.WriteLine("Inserisci un voto per ottenere l'elenco dei voti maggiori e minori di 0.5");
             double votoSelezionato = double.Parse(Console.ReadLine());
             ElencoVotiNellIntorno(voti, pesi, nVoti, votoSelezionato);
+            OrdinaPerVoto(ref voti, ref pesi, nVoti);
+            Console.WriteLine("Voti in ordine:");
+            StampaVotiPesi(voti, pesi, nVoti);
         }
         static void StampaVotiPesi(double[] voti, int[] pesi, int nVoti)
         {
@@ -85,6 +88,27 @@
                     Console.WriteLine($"{voti[i]}    {pesi[i]}");
                 }
             }
+        }
+        static void OrdinaPerVoto(ref double[] voti, ref int[] pesi, int nVoti)
+        {
+            bool scambiato;
+            do
+            {
+                scambiato = false;
+                for (int i = 0; i < nVoti - 1; i++)
+                {
+                    if (voti[i] > voti[i + 1])
+                    {
+                        double tempVoto = voti[i];
+                        int tempPeso = pesi[i];
+                        voti[i] = voti[i + 1];
+                        pesi[i] = pesi[i + 1];
+                        voti[i + 1] = tempVoto;
+                        pesi[i + 1] = tempPeso;
+                        scambiato = true;
+                    }
+                }
+            } while (scambiato);
         }
     }
 }
