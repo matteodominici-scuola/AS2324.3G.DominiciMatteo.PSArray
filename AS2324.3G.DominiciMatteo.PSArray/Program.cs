@@ -17,7 +17,10 @@
             StampaVotiPesi(voti, pesi, nVoti);
             StampaVotiDispariMaggiori4(ref voti, ref pesi, nVoti);
             double media = MediaPonderata(voti, pesi, nVoti, ref max, ref posMax, ref min, ref posMin);
-            Console.WriteLine($"La media ponderata dei voti è {media}, il voto massimo è {max} ed è in posizione {posMax}, il voto minimo è {min} ed è in posizione {posMin}.");
+            Console.WriteLine($"La media ponderata dei voti è {media}, il voto massimo è {max} ed è in posizione {posMax+1}, il voto minimo è {min} ed è in posizione {posMin+1}.");
+            Console.WriteLine("Inserisci un voto per ottenere l'elenco dei voti maggiori e minori di 0.5");
+            double votoSelezionato = double.Parse(Console.ReadLine());
+            ElencoVotiNellIntorno(voti, pesi, nVoti, votoSelezionato);
         }
         static void StampaVotiPesi(double[] voti, int[] pesi, int nVoti)
         {
@@ -32,7 +35,7 @@
             Random random = new Random();
             for(int i = 0;i < nVoti; i++)
             {
-                voti[i] = random.Next(1, 11);
+                voti[i] = random.NextDouble()*10+1;
                 pesi[i] = random.Next(0, 101);
             }
         }
@@ -60,15 +63,28 @@
                 if (voti[i] > max)
                 {
                     max = voti[i];
-                    posmax = i;
+                    posmax = i+1;
                 }
                 if (voti[i] < min)
                 {
                     min = voti[i];
-                    posmin = i;
+                    posmin = i+1;
                 }
             }
             return sommaVotiPonderata / sommaPesi;
+        }
+        static void ElencoVotiNellIntorno(double[] voti, int[] pesi, int nVoti, double voto)
+        {
+            double diffPoss = 0.5;
+            Console.WriteLine($"Elenco dei voti maggiori o minori di 0.5 rispetto a {voto}:");
+            for (int i = 0; i < nVoti; i++)
+            {
+                double differenza = voti[i] - voto;
+                if (differenza <= diffPoss && differenza >= -diffPoss)
+                {
+                    Console.WriteLine($"{voti[i]}    {pesi[i]}");
+                }
+            }
         }
     }
 }
